@@ -257,6 +257,14 @@ do_get_rpi_model()
             model=4
         fi
     fi
+	
+	# Added for support of the "Raspberry Pi Compute Module 4 Rev 1.0" (DeBuffel)
+    if [ $model -eq 255 ]; then
+        text=`tr -d '\0' </proc/device-tree/model | grep -a 'Pi Compute Module 4'`
+        if [ ! -z "$text" ]; then
+            model=4
+        fi
+    fi
 
     if [ $model -eq 255 ]; then
         text=`tr -d '\0' </proc/device-tree/model | grep -a 'Pi Z'`
